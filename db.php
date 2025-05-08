@@ -3,7 +3,7 @@
 $host="localhost";
 $user="root";
 $pass="";
-$db="coffee_shop";
+$db="Starlight_Sip";
 $conn=new mysqli($host,$user,$pass, $db);
 if($conn->connect_error){
     die("Connection failed". $conn->connect_error);
