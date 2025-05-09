@@ -1,62 +1,65 @@
-<?php 
+<?php require_once 'init.php'; ?>
 
+<?php 
 include 'db.php';
 
 if(isset($_POST['signUp'])){
-    $firstName=$_POST['fName'];
-    $lastName=$_POST['lName'];
-    $email=$_POST['email'];
-    $password=$_POST['password'];
-    $password=md5($password);
+    $firstName = $_POST['fName'];
+    $lastName = $_POST['lName'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $password = md5($password);
 
-     $checkEmail="SELECT * From users where email='$email'";
-     $result=$conn->query($checkEmail);
-     if($result->num_rows>0){
-        echo "Email Address Already Exists !";
-     }
-     else{
-        $insertQuery="INSERT INTO users(firstName,lastName,email,password)
-                       VALUES ('$firstName','$lastName','$email','$password')";
-            if($conn->query($insertQuery)==TRUE){
-                header("location: index.php");
-            }
-            else{
-                echo "Error:".$conn->error;
-            }
-     }
-   
-
+    // Check if email exists
+    $checkEmail = "SELECT * FROM users WHERE email='$email'";
+    $result = $conn->query($checkEmail);
+    
+    if($result->num_rows > 0){
+        echo "Email Address Already Exists!";
+    } else {
+        // Modified INSERT query to exclude id (let it auto-increment)
+        $insertQuery = "INSERT INTO users (firstName, lastName, email, password) 
+                       VALUES (?, ?, ?, ?)";
+        
+        $stmt = $conn->prepare($insertQuery);
+        $stmt->bind_param("ssss", $firstName, $lastName, $email, $password);
+        
+        if($stmt->execute()){
+            header("Location: index.php");
+            exit();
+        } else {
+            echo "Error: ".$conn->error;
+        }
+        $stmt->close();
+    }
 }
 
 if(isset($_POST['signIn'])){
-   $email=$_POST['email'];
-   $password=$_POST['password'];
-   $password=md5($password) ;
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);
+    
+    // Check if this is an admin login attempt
+    if(isset($_POST['is_admin']) && $_POST['is_admin'] == 'on') {
+        header("Location: admin_login.php");
+        exit();
+    }
    
-   $sql="SELECT * FROM users WHERE email='$email' and password='$password'";
-   $result=$conn->query($sql);
-   if($result->num_rows>0){
-    session_start();
-    $row=$result->fetch_assoc();
-    $_SESSION['email']=$row['email'];
-    header("Location: homepage.php");
-    exit();
-   }
-   else{
-    echo "Not Found, Incorrect Email or Password";
-   }
-
-}
-?>
-<?php 
-session_start();
-include 'db.php';
-
-// Redirect admin to admin panel if already logged in
-if(isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
-    header("Location: admin_panel.php");
-    exit();
+    $sql = "SELECT * FROM users WHERE email=? AND password=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $email, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if($result->num_rows > 0){
+        $row = $result->fetch_assoc();
+        $_SESSION['email'] = $row['email'];
+        header("Location: homepage.php");
+        exit();
+    } else {
+        echo "Not Found, Incorrect Email or Password";
+    }
+    $stmt->close();
 }
 
-// Rest of your existing code...
+$conn->close();
 ?>

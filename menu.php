@@ -4,6 +4,10 @@ include 'db.php';
 $sql = "SELECT * FROM coffees order by category";
 $result = $conn->query($sql);
 ?>
+<?php 
+$page_title = "Coffee Menu";
+include 'header.php'; 
+?>
 
 <!DOCTYPE html>
 <html>
@@ -84,12 +88,15 @@ $result = $conn->query($sql);
 <h1>☕ Coffee Menu</h1>
 
 <div class="button-row">
-  <form action="review.php" method="GET">
-    <input type="submit" value="Reviews" class="menu-button" />
-  </form>
-  <form action="reservation.php" method="GET">
-    <input type="submit" value="Reservation" class="menu-button" />
-  </form>
+    <form action="cart_view.php" method="GET">
+        <input type="submit" value="View Cart" class="menu-button" />
+    </form>
+    <form action="review.php" method="GET">
+        <input type="submit" value="Reviews" class="menu-button" />
+    </form>
+    <form action="reservation.php" method="GET">
+        <input type="submit" value="Reservation" class="menu-button" />
+    </form>
 </div>
   
 
@@ -118,19 +125,46 @@ if ($result && $result->num_rows > 0) {
     <div class="menu-category">
       <?php foreach ($items as $item): ?>
         <div class="menu-item">
-          <img src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" />
-          <h3><?= htmlspecialchars($item['name']) ?></h3>
-          <p><?= htmlspecialchars($item['description']) ?></p>
-          <p><strong><?= number_format($item['price'], 2) ?>TK</strong></p>
-        </div>
+    <img src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>">
+    <h3><?= htmlspecialchars($item['name']) ?></h3>
+    <p class="item-description"><?= htmlspecialchars($item['description']) ?></p>
+    
+    <!-- PRICE AND ADD TO CART FORM GO HERE -->
+    <p class="item-price"><?= number_format($item['price'], 2) ?> TK</p>
+    
+    <form method="POST" action="cart.php" class="add-to-cart-form">
+        <input type="hidden" name="coffee_id" value="<?= $item['id'] ?>">
+        <input type="number" name="quantity" value="1" min="1" class="quantity-input">
+        <button type="submit" name="add_to_cart" class="add-to-cart-btn">
+            <i class="fas fa-cart-plus"></i> Add to Cart
+        </button>
+    </form>
+    <!-- END OF PRICE AND ADD TO CART -->
+</div>
       <?php endforeach; ?>
     </div>
   <?php endforeach; ?>
 <?php else: ?>
   <p>No coffee items found.</p>
-<?php endif; ?>
+  <?php endif; ?>
+
+<!-- Add this button row here again -->
+<div class="button-row">
+    <form action="cart_view.php" method="GET">
+        <input type="submit" value="View Cart" class="menu-button" />
+    </form>
+    <form action="review.php" method="GET">
+        <input type="submit" value="Reviews" class="menu-button" />
+    </form>
+    <form action="reservation.php" method="GET">
+        <input type="submit" value="Reservation" class="menu-button" />
+    </form>
+</div>
+<!-- End of button row -->
 
 <?php $conn->close(); ?>
+
 </body>
+<?php include 'footer.php'; ?>
 </html> 
 

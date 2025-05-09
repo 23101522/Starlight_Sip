@@ -1,9 +1,13 @@
+<?php require_once 'init.php'; ?>
+
 <?php
-session_start();
 include("db.php");
 
 ?>
-
+<?php 
+$page_title = "Welcome";
+include 'header.php'; 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,8 +18,8 @@ include("db.php");
 </head>
 <body>
     <div style="text-align:center; padding:15%;">
-      <p  style="font-size:50px; font-weight:bold;">
-       Hello  <?php 
+      <p  style="font-size:50px; font-weight:bold; color: white;">
+       Welcome <?php 
        if(isset($_SESSION['email'])){
         $email=$_SESSION['email'];
         $query=mysqli_query($conn, "SELECT users.* FROM `users` WHERE users.email='$email'");
@@ -26,7 +30,7 @@ include("db.php");
        ?>
 
       </p>
-      <a href="logout.php">Logout</a>
     </div>
 </body>
+<?php include 'footer.php'; ?>
 </html>

@@ -11,9 +11,9 @@
     <?php
     $show_signup = isset($_GET['form']) && $_GET['form'] == 'signup';
     ?>
-      <div class="container" id = "signup" style="display: <?php echo $show_signup ? 'block' : 'none'; ?>;">
-        <h1 class = "form-title">Register</h1>
-        <form  method= "post" action="register.php">
+    <div class="container" id="signup" style="display: <?php echo $show_signup ? 'block' : 'none'; ?>;">
+        <h1 class="form-title">Register</h1>
+        <form method="post" action="register.php">
             <div class="input-group">
                 <i class="fas fa-user"></i>
                 <input type="text" name="fName" placeholder="First Name" required>
@@ -21,7 +21,7 @@
             </div>
             <div class="input-group">
                 <i class="fas fa-user"></i>
-                <input type="text" name="lName" id="lName" id="lName" placeholder="Last Name">
+                <input type="text" name="lName" id="lName" placeholder="Last Name">
                 <label for="lName">Last Name</label>
             </div>
             <div class="input-group">
@@ -31,23 +31,21 @@
             </div>
             <div class="input-group">
                 <i class="fas fa-lock"></i>
-                <input type="password" id="password" placeholder="Password" required>
+                <input type="password" name="password" id="password" placeholder="Password" required>
                 <label for="password">Password</label>
             </div>
             <input type="submit" class="btn" value="Sign Up" name="signUp">
         </form>
         <div class="links">
-            <p>
-                Already Have an Account?
-            </p>
-            <a href="index.php?form=signin"><button id="signInButton">Sign In</button></a>
+            <p>Already Have an Account?</p>
+            <a href="index.php"><button id="signInButton">Sign In</button></a>
         </div>
-      </div>
+    </div>
 
-
-      <div class="container" id = "signIn" style="display: <?php echo !$show_signup ? 'block' : 'none'; ?>;">
-        <h1 class = "form-title">Sign In</h1>
-        <form  method= "post" action="register.php">
+    <!-- (admin link) -->
+    <div class="container" id="signIn" style="display: <?php echo !$show_signup ? 'block' : 'none'; ?>;">
+        <h1 class="form-title">Sign In</h1>
+        <form method="post" action="register.php">
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
                 <input type="email" name="email" id="email" placeholder="Email" required>
@@ -55,7 +53,7 @@
             </div>
             <div class="input-group">
                 <i class="fas fa-lock"></i>
-                <input type="password" id="password" placeholder="Password" required>
+                <input type="password" name="password" id="password" placeholder="Password" required>
                 <label for="password">Password</label>
             </div>
             <p class="recover">
@@ -64,11 +62,15 @@
             <input type="submit" class="btn" value="Sign In" name="signIn">
         </form>
         <div class="links">
-            <p>
-                Don't have an account?
-            </p>
-            <a href="index.php?form=signup"><button id="signUpButton">Sign Up</button></a> 
+            <p>Don't have an account?</p>
+            <a href="index.php?form=signup"><button id="signUpButton">Sign Up</button></a>
+<div class="admin-access">
+    <div class="divider">or</div>
+    <a href="admin_login.php" class="admin-login-btn">
+        <i class="fas fa-user-shield"></i> Admin Login
+    </a>
+</div>
         </div>
-      </div>
+    </div>
 </body>
 </html>

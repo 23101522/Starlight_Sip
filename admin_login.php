@@ -1,5 +1,5 @@
+<?php require_once 'init.php'; ?>
 <?php
-session_start();
 $ad_user="manager";
 $ad_pass="1234";
 if ($_SERVER["REQUEST_METHOD"]=="POST")

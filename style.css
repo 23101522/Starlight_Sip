@@ -1,33 +1,85 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* ===== Base Styles ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     list-style: none;
     text-decoration: none;
-    font-family:"poppins",sans-serif;
+    font-family: "Poppins", sans-serif;
 }
-body{
-    background: url('bg\ pic.jpg');
+
+body {
+    background: url('bg pic.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100vh;
+    min-height: 100vh;
+    color: #333;
 }
-.container{
+
+/* ===== Header Styles ===== */
+header {
+    background: #fdf6ec;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    color: #6F4E37;
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.user-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-controls span {
+    color: #6F4E37;
+    font-weight: 500;
+}
+
+.logout-btn {
+    color: #6F4E37;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    color: #8A9A5B;
+    text-decoration: underline;
+}
+
+/* ===== Form Container Styles ===== */
+.container {
     position: absolute;
     bottom: 200px;
     left: 50%;
     transform: translateX(-50%);
-    background:transparent;
-    width:450px;
-    padding:1.5rem;
-    margin:50px auto;
-    border-radius:10px;
-    box-shadow:0 20px 35px rgba(0,0,1,0.9);
+    background: transparent;
+    width: 450px;
+    padding: 1.5rem;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0 20px 35px rgba(0,0,1,0.9);
 }
-form{
+
+form {
     margin: 0 2rem;
 }
-.form-title{
+
+.form-title {
     font-size: 1.5rem;
     font-weight: bold;
     text-align: center;
@@ -35,33 +87,40 @@ form{
     margin-bottom: 0.4rem;
     color: white;
 }
-input{
+
+/* ===== Input Styles ===== */
+input {
     color: white;
     width: 100%;
     background-color: transparent;
     border: none;
-    border-bottom: 1px solid white ;
+    border-bottom: 1px solid white;
     padding-left: 1.5rem;
     font-size: 15px;
 }
-.input-group{
+
+.input-group {
     padding: 10px 0;
     position: relative;
     margin-bottom: 10px;
 }
-.input-group i{
+
+.input-group i {
     position: absolute;
     color: white;
 }
-input:focus{
+
+input:focus {
     background-color: transparent;
     outline: transparent;
     border-bottom: 2px solid white;
 }
-input::placeholder{
+
+input::placeholder {
     color: transparent;
 }
-label{
+
+label {
     color: white;
     position: relative;
     left: 2em;
@@ -69,25 +128,15 @@ label{
     cursor: auto;
     transition: 0.3s ease all;
 }
-input:focus~label,input:not(:placeholder-shown)~label{
+
+input:focus~label, input:not(:placeholder-shown)~label {
     top: -3em;
     color: white;
     font-size: 15px;
 }
-.recover{
-    text-align: right;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-}
-.recover a{
-    text-decoration: none;
-    color: white;
-}
-.recover a:hover{
-    color: white;
-    text-decoration: underline;
-}
-.btn{
+
+/* ===== Button Styles ===== */
+.btn {
     font-size: 1.1rem;
     padding: 8px 0;
     border-radius: 5px;
@@ -99,10 +148,13 @@ input:focus~label,input:not(:placeholder-shown)~label{
     cursor: pointer;
     transition: 0.9s;
 }
-.btn:hover{
+
+.btn:hover {
     background: #8A9A5B;
 }
-.links{
+
+/* ===== Link Styles ===== */
+.links {
     display: flex;
     justify-content: space-around;
     padding: 0 4rem;
@@ -110,154 +162,335 @@ input:focus~label,input:not(:placeholder-shown)~label{
     font-weight: bold;
     color: white;
 }
-button{
-    color: white;
-    border: none;
-    background-color: transparent;
+
+.recover {
+    text-align: right;
     font-size: 1rem;
-    font-weight: bold;
+    margin-bottom: 1rem;
 }
-button:hover{
+
+.recover a {
+    text-decoration: none;
+    color: white;
+}
+
+.recover a:hover {
+    color: white;
     text-decoration: underline;
-    color: #8A9A5B;
+}
+/* ===== Responsive Styles ===== */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        bottom: auto;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    header {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .user-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .button-row, .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .checkout-btn, .menu-button {
+        width: 100%;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .cart-item img {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
 }
 
-/* Admin Login Page Styles */
-body.admin-login {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
+/* ===== Menu Item Styles ===== */
+.menu-item {
+    /* Your existing menu item styles */
+    padding: 15px;
+    margin-bottom: 20px;
+    /* Add this if not present */
+    position: relative;
+}
+
+/* Add these new styles */
+.item-price {
+    font-weight: bold;
+    color: #6F4E37;
+    font-size: 16px;
+    margin: 10px 0;
+    display: block;
+}
+
+.add-to-cart-form {
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    gap: 10px;
+    margin-top: 15px;
 }
 
-.login-container {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
+.quantity-input {
+    width: 60px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     text-align: center;
+    color: black;
 }
 
-.login-container h2 {
-    color: #6F4E37;
-    margin-bottom: 1.5rem;
-}
-
-.login-container input[type="text"],
-.login-container input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.login-container input[type="submit"] {
-    background-color: #6F4E37;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-    margin-top: 10px;
-}
-
-.login-container input[type="submit"]:hover {
-    background-color: #5a3e2b;
-}
-
-.login-container .error {
-    color: #ff3333;
-    margin-bottom: 15px;
-}
-
-/* Admin Panel Page Styles */
-body.admin-panel {
-    font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 20px;
-    color: #333;
-}
-
-.admin-panel h2 {
-    color: #6F4E37;
-    border-bottom: 2px solid #6F4E37;
-    padding-bottom: 10px;
-}
-
-.admin-panel form {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-}
-
-.admin-panel input,
-.admin-panel textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.admin-panel .submit-btn {
+.add-to-cart-btn {
     background-color: #6F4E37;
     color: white;
     border: none;
-    padding: 12px 20px;
+    padding: 8px 15px;
     border-radius: 4px;
+    font-size: 14px;
     cursor: pointer;
-    font-size: 16px;
+    transition: all 0.3s ease;
+    flex-grow: 1;
 }
 
-.admin-panel .submit-btn:hover {
+.add-to-cart-btn:hover {
     background-color: #5a3e2b;
+    transform: translateY(-2px);
 }
 
-.admin-panel table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.add-to-cart-btn i {
+    margin-right: 5px;
 }
 
-.admin-panel th,
-.admin-panel td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+/* Add this to your existing CSS */
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px; /* This adds the space below the header */
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0c097;
 }
 
-.admin-panel th {
+.cart-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     background-color: #6F4E37;
     color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
 }
 
-.admin-panel tr:hover {
-    background-color: #f5f5f5;
+.cart-link:hover {
+    background-color: #5a2b2b;
 }
 
-.admin-panel .delete-btn {
+.cart-count {
+    background-color: #8A9A5B;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+/* Cart Action Buttons */
+.cart-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 15px;
+}
+.cart-actions .btn {
+    flex: 1;
+    padding: 12px 0;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+/* Checkout Page Styles */
+.checkout-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+.payment-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.cancel-btn {
     background-color: #e74c3c;
     color: white;
     border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
 }
 
-.admin-panel .delete-btn:hover {
+.pay-btn {
+    background-color: #6F4E37;
+    color: white;
+}
+
+.cancel-btn:hover {
     background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+.pay-btn:hover {
+    background-color: #5a3e2b;
+    transform: translateY(-2px);
+}
+
+.order-summary {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.order-total {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: right;
+    margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+    .checkout-actions {
+        flex-direction: column;
+    }
+    
+    .payment-btn {
+        width: 100%;
+        max-width: none;
+        margin-bottom: 10px;
+    }
+}
+.update-btn{
+    background: #666;
+    color: white;
+    border: none;
+}
+.update-btn:hover{
+    background: #5a3e2b;
+}
+
+/* Add to style.css */
+.links a[href="admin_login.php"] {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 12px;
+    background: rgba(138, 154, 91, 0.2);
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.links a[href="admin_login.php"]:hover {
+    background: rgba(138, 154, 91, 0.3);
+    text-decoration: none;
+}
+
+.links a[href="admin_login.php"] i {
+    margin-right: 5px;
+}
+/* Admin Access Section */
+.admin-access {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.divider {
+    color: white;
+    margin: 15px 0;
+    position: relative;
+    font-size: 14px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+.admin-login-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: rgba(138, 154, 91, 0.2);
+    color: #8A9A5B;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(138, 154, 91, 0.3);
+}
+
+.admin-login-btn:hover {
+    background: rgba(138, 154, 91, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.admin-login-btn i {
+    margin-right: 8px;
+}
+.logout-btn {
+    background: #e57373;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    background: #c62828;
 }
