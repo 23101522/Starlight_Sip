@@ -115,7 +115,9 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         <?php else: ?>
             <div class="empty-cart">
                 <h2>Your cart is empty</h2>
+                <br>
                 <p>Browse our menu to add delicious items!</p>
+                <br>
                 <a href="menu.php" class="checkout-btn">View Menu</a>
             </div>
         <?php endif; ?>

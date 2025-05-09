@@ -4,9 +4,6 @@ require_once 'init.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
-...
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,15 +12,18 @@ require_once 'init.php';
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header style="background:transparent; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;">
-    <a href="menu.php" style="text-decoration: none;">
-        <h1 style="color: sandybrown; margin: 0;">Starlight Sip</h1>
-    </a>
-    <?php if(isset($_SESSION['email'])): ?>
-        <nav>
-            <a href="menu.php" style="color:white; margin-right: 15px; text-decoration: none; font-size: medium;">Menu</a>
-            <a href="logout.php" style="color: white; text-decoration: none;">Logout</a>
-        </nav>
-    <?php endif; ?>
-</header>
+    <!-- REPLACE THE ENTIRE <header> SECTION WITH THIS: -->
+    <header class="main-header">
+        <a href="menu.php" class="logo">
+            <h1>Starlight Sip</h1>
+        </a>
+        <?php if(isset($_SESSION['email'])): ?>
+            <nav class="main-nav">
+                <a href="cart_view.php"><i class="fas fa-shopping-cart"></i> Cart</a>
+                <a href="review.php"><i class="fas fa-star"></i> Reviews</a>
+                <a href="reservation.php"><i class="fas fa-calendar-alt"></i> Reservations</a>
+                <a href="logout.php" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </nav>
+        <?php endif; ?>
+    </header>
     <main>

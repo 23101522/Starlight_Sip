@@ -53,7 +53,7 @@ if(isset($_POST['signIn'])){
     if($result->num_rows > 0){
         $row = $result->fetch_assoc();
         $_SESSION['email'] = $row['email'];
-        header("Location: homepage.php");
+        header("Location: menu.php");
         exit();
     } else {
         echo "Not Found, Incorrect Email or Password";

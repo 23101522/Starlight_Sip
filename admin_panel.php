@@ -42,35 +42,67 @@ $result= $conn->query("select * from coffees");?>
         th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
         .delete-btn { background: #e57373; color: white; border: none; padding: 6px 10px; cursor: pointer; }
         .submit-btn { background: #81c784; color: white; border: none; padding: 10px 20px; cursor: pointer; }
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
-            margin-bottom: 30px;
-        }
-        
-        .admin-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            color: #6F4E37;
-        }
-        
-        .admin-actions {
-            display: flex;
-            gap: 15px;
-        }
+        /* Admin Header Styles */
+.admin-header {
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    padding: 15px 20px;
+    background: transparent; /* Or your preferred background */
+    margin-bottom: 20px;
+}
+
+.admin-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between buttons */
+}
+
+.admin-actions a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+/* View Orders Button */
+.admin-actions a[href="admin_orders.php"] {
+    color: #5a3e2b;
+    background: rgba(138, 154, 91, 0.2); /* Light background */
+    border: 1px solid rgba(90, 62, 43, 0.2);
+}
+
+.admin-actions a[href="admin_orders.php"]:hover {
+    background: rgba(138, 154, 91, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Logout Button */
+.admin-actions a[href="Admin_logout.php"] {
+    color: #5a3e2b;
+    background: rgba(231, 76, 60, 0.2); /* Light red background */
+    border: 1px solid rgba(231, 76, 60, 0.2);
+}
+
+.admin-actions a[href="Admin_logout.php"]:hover {
+    background: rgba(231, 76, 60, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Icons */
+.admin-actions i {
+    font-size: 0.9em;
+}
         
         .logout-btn {
             display: flex;
             align-items: center;
             gap: 5px;
             padding: 8px 15px;
-            background: #e74c3c;
+            background:lightcoral;
             color: white;
             border: none;
             border-radius: 4px;
@@ -80,7 +112,6 @@ $result= $conn->query("select * from coffees");?>
         }
         
         .logout-btn:hover {
-            background: #c0392b;
             transform: translateY(-2px);
         }
         
@@ -91,10 +122,15 @@ $result= $conn->query("select * from coffees");?>
 </head>
 <body>
 <div class="admin-header">
-        <a href="admin_logout.php" class="logout-btn">
+    <div class="admin-actions">
+        <a href="admin_orders.php" class="btn" style="background:tranparent; font-size: medium;">
+            <i class="fas fa-clipboard-list"></i> View Orders
+        </a>
+        <a href="admin_logout.php" class="logout-btn" style="background:tranparent; font-size: medium; color: #5a3e2b;">
             <i class="fas fa-sign-out-alt"></i> Logout
         </a>
     </div>
+</div>
 <h2>☕ Add New Coffee</h2>
 <form method="POST">
     <input type="text" name="name" placeholder="Name" required><br><br>

@@ -86,21 +86,8 @@ include 'header.php';
 <body>
 
 <h1>☕ Coffee Menu</h1>
-
-<div class="button-row">
-    <form action="cart_view.php" method="GET">
-        <input type="submit" value="View Cart" class="menu-button" />
-    </form>
-    <form action="review.php" method="GET">
-        <input type="submit" value="Reviews" class="menu-button" />
-    </form>
-    <form action="reservation.php" method="GET">
-        <input type="submit" value="Reservation" class="menu-button" />
-    </form>
-</div>
-  
-
-
+<br>
+<br>
 <?php
 /*This starts a <div> element with a class name menu-category.
 
@@ -148,19 +135,6 @@ if ($result && $result->num_rows > 0) {
   <p>No coffee items found.</p>
   <?php endif; ?>
 
-<!-- Add this button row here again -->
-<div class="button-row">
-    <form action="cart_view.php" method="GET">
-        <input type="submit" value="View Cart" class="menu-button" />
-    </form>
-    <form action="review.php" method="GET">
-        <input type="submit" value="Reviews" class="menu-button" />
-    </form>
-    <form action="reservation.php" method="GET">
-        <input type="submit" value="Reservation" class="menu-button" />
-    </form>
-</div>
-<!-- End of button row -->
 
 <?php $conn->close(); ?>
 
