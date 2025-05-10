@@ -104,7 +104,6 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     <h3>Total: <?= number_format($total, 2) ?> TK</h3>
 </div>
 
-<!-- ACTION BUTTONS GO HERE -->
 <div class="cart-actions">
     <a href="confirm_cancel.php" class="btn cancel-btn">Cancel Order</a>
     <button type="submit" name="update_cart" class="btn update-btn">Update Cart</button>

@@ -42,12 +42,12 @@ $result= $conn->query("select * from coffees");?>
         th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
         .delete-btn { background: #e57373; color: white; border: none; padding: 6px 10px; cursor: pointer; }
         .submit-btn { background: #81c784; color: white; border: none; padding: 10px 20px; cursor: pointer; }
-        /* Admin Header Styles */
+        
 .admin-header {
     display: flex;
     justify-content: flex-end; /* Align items to the right */
     padding: 15px 20px;
-    background: transparent; /* Or your preferred background */
+    background: transparent;
     margin-bottom: 20px;
 }
 
@@ -71,7 +71,7 @@ $result= $conn->query("select * from coffees");?>
 /* View Orders Button */
 .admin-actions a[href="admin_orders.php"] {
     color: #5a3e2b;
-    background: rgba(138, 154, 91, 0.2); /* Light background */
+    background: rgba(138, 154, 91, 0.2);
     border: 1px solid rgba(90, 62, 43, 0.2);
 }
 
@@ -83,7 +83,7 @@ $result= $conn->query("select * from coffees");?>
 /* Logout Button */
 .admin-actions a[href="Admin_logout.php"] {
     color: #5a3e2b;
-    background: rgba(231, 76, 60, 0.2); /* Light red background */
+    background: rgba(231, 76, 60, 0.2);
     border: 1px solid rgba(231, 76, 60, 0.2);
 }
 

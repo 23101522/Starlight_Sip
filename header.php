@@ -1,5 +1,4 @@
 <?php 
-// header.php - First line should be:
 require_once 'init.php';
 ?>
 <!DOCTYPE html>
@@ -12,7 +11,6 @@ require_once 'init.php';
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- REPLACE THE ENTIRE <header> SECTION WITH THIS: -->
     <header class="main-header">
         <a href="menu.php" class="logo">
             <h1>Starlight Sip</h1>

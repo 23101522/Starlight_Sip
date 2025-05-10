@@ -1,10 +1,8 @@
 <?php
 require_once 'init.php';
 
-// Unset all session variables
 $_SESSION = [];
 
-// Destroy session cookie
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000,
@@ -15,10 +13,7 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-// Destroy session
 session_destroy();
-
-// Redirect
 header("Location: index.php");
 exit();
 ?>

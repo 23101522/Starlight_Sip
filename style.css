@@ -1,4 +1,3 @@
-/* ===== Base Styles ===== */
 * {
     margin: 0;
     padding: 0;
@@ -16,7 +15,6 @@ body {
     color: #333;
 }
 
-/* ===== Header Styles ===== */
 header {
     background: #fdf6ec;
     padding: 15px 30px;
@@ -61,7 +59,6 @@ header h1 {
     text-decoration: underline;
 }
 
-/* ===== Form Container Styles ===== */
 .container {
     position: absolute;
     bottom: 200px;
@@ -88,7 +85,6 @@ form {
     color: white;
 }
 
-/* ===== Input Styles ===== */
 input {
     color: white;
     width: 100%;
@@ -135,7 +131,6 @@ input:focus~label, input:not(:placeholder-shown)~label {
     font-size: 15px;
 }
 
-/* ===== Button Styles ===== */
 .btn {
     font-size: 1.1rem;
     padding: 8px 0;
@@ -153,7 +148,7 @@ input:focus~label, input:not(:placeholder-shown)~label {
     background: #8A9A5B;
 }
 
-/* ===== Link Styles ===== */
+/* Link Styles */
 .links {
     display: flex;
     justify-content: space-around;
@@ -178,56 +173,15 @@ input:focus~label, input:not(:placeholder-shown)~label {
     color: white;
     text-decoration: underline;
 }
-/* ===== Responsive Styles ===== */
-@media (max-width: 768px) {
-    .container {
-        width: 90%;
-        bottom: auto;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
 
-    header {
-        flex-direction: column;
-        padding: 15px;
-        gap: 15px;
-    }
-
-    .user-controls {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .button-row, .button-group {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .checkout-btn, .menu-button {
-        width: 100%;
-    }
-
-    .cart-item {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .cart-item img {
-        margin-right: 0;
-        margin-bottom: 15px;
-    }
-}
-
-/* ===== Menu Item Styles ===== */
+/* Menu Item Styles */
 .menu-item {
-    /* Your existing menu item styles */
     padding: 15px;
     margin-bottom: 20px;
-    /* Add this if not present */
     position: relative;
 }
 
-/* Add these new styles */
+
 .item-price {
     font-weight: bold;
     color: #6F4E37;
@@ -273,12 +227,10 @@ input:focus~label, input:not(:placeholder-shown)~label {
     margin-right: 5px;
 }
 
-/* Add this to your existing CSS */
 .menu-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px; /* This adds the space below the header */
     padding-bottom: 15px;
     border-bottom: 1px solid #e0c097;
 }
@@ -391,17 +343,6 @@ input:focus~label, input:not(:placeholder-shown)~label {
     margin-top: 15px;
 }
 
-@media (max-width: 768px) {
-    .checkout-actions {
-        flex-direction: column;
-    }
-    
-    .payment-btn {
-        width: 100%;
-        max-width: none;
-        margin-bottom: 10px;
-    }
-}
 .update-btn{
     background: #666;
     color: white;
@@ -591,25 +532,6 @@ input:focus~label, input:not(:placeholder-shown)~label {
     background: rgba(231, 76, 60, 0.4);
 }
 
-/* Mobile styles (add at the end of your media queries) */
-@media (max-width: 768px) {
-    .main-header {
-        flex-direction: column;
-        padding: 15px;
-        gap: 15px;
-    }
-    
-    .main-nav {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-    }
-    
-    .main-nav a {
-        padding: 6px 10px;
-        font-size: 0.9rem;
-    }
-}
 
 /* Admin Header Styles */
 .admin-header {

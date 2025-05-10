@@ -89,17 +89,8 @@ include 'header.php';
 <br>
 <br>
 <?php
-/*This starts a <div> element with a class name menu-category.
 
-You can use CSS to style all items under this category, such as:
 
-Adding spacing
-
-Changing layout
-
-Grouping coffee items visually
-
-This div will typically wrap around all menu items in that category.*/
 $menu=[];
 if ($result && $result->num_rows > 0) {
     while($row = $result->fetch_assoc()) 

@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Clear cart
     unset($_SESSION['cart']);
     
-    // Redirect to payment page (in a real app, this would be a payment gateway)
+    // Redirect to payment page
     header("Location: payment_success.php?order_id=$order_id");
     exit();
 }
@@ -54,9 +54,7 @@ include 'header.php';
     <style>
     body { font-family: Arial; background: #fdf6ec; padding: 20px; }
     .checkout-container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    /* ... other existing styles ... */
-    
-    /* NEW STYLES ADDED HERE */
+
     .payment-btn {
         width: auto;
         padding: 12px 30px;
@@ -97,7 +95,7 @@ include 'header.php';
     <h2>Payment Method</h2>
     <p>Make a successful payment.</p>
     
-    <!-- NEW BUTTONS DIV -->
+
     <div class="checkout-actions">
         <a href="cart_view.php" class="payment-btn cancel-btn">Cancel</a>
         <button type="submit" class="payment-btn pay-btn">Place Order</button>
