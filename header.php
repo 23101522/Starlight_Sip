@@ -22,6 +22,7 @@ require_once 'init.php';
                 <a href="reservation.php"><i class="fas fa-calendar-alt"></i> Reservations</a>
                 <a href="review.php"><i class="fas fa-star"></i> Review</a>
                 <a href="recommend.php"><i class="fas fa-thumbs-up"> Recommend</i></a>
+                <a href="complaints.php"><i class="fas fa-comment-dots"> Complaints</i></a>
                 <a href="logout.php" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 
 

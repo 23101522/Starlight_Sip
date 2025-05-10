@@ -123,11 +123,9 @@ $result= $conn->query("select * from coffees");?>
 <body>
 <div class="admin-header">
     <div class="admin-actions">
-        <a href="admin_orders.php" class="btn" style="background:tranparent; font-size: medium;">
-            <i class="fas fa-clipboard-list"></i> View Orders
+        <a href="admin_orders.php" class="btn" style="background:tranparent; font-size: medium;">View Orders
         </a>
-        <a href="admin_logout.php" class="logout-btn" style="background:tranparent; font-size: medium; color: #5a3e2b;">
-            <i class="fas fa-sign-out-alt"></i> Logout
+        <a href="admin_logout.php" class="logout-btn" style="background:tranparent; font-size: medium; color: #5a3e2b;">Logout
         </a>
     </div>
 </div>
