@@ -1,6 +1,6 @@
-<?php require_once 'init.php'; ?>
+<?php 
+require_once 'init.php';
 
-<?php
 include 'db.php';
 
 // Add item to cart
@@ -38,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
             ];
         }
     }
-    header("Location: ".$_SERVER['HTTP_REFERER']);
-    exit();
+   header("Location: ".$_SERVER['HTTP_REFERER']);
+   exit();
 }
 
 // Remove item from cart
