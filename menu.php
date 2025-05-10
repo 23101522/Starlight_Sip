@@ -111,7 +111,6 @@ if ($result && $result->num_rows > 0) {
     <p class="item-price"><?= number_format($item['price'], 2) ?> TK</p>
     
     <form method="POST" action="cart.php" class="add-to-cart-form">
-        <input type="hidden" name="coffee_id" value="<?= $item['id'] ?>">
         <input type="number" name="quantity" value="1" min="1" class="quantity-input">
         <button type="submit" name="add_to_cart" class="add-to-cart-btn">
             <i class="fas fa-cart-plus"></i> Add to Cart

@@ -1,35 +1,35 @@
 <?php require_once 'init.php'; ?>
+
 <?php
 include 'db.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Submit review logic
+// Submit complaint logic
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
-    $rating = $_POST['rating'];
-    $comment = $_POST['comment'];
+    $complaint = $_POST['complaint'];
 
-    // Insert the review into the database
-    $stmt = $conn->prepare("INSERT INTO reviews (name, rating, comment) VALUES (?, ?, ?)");
-    $stmt->bind_param("sis", $name, $rating, $comment);
+    // Insert the complaint into the database
+    $stmt = $conn->prepare("INSERT INTO complaints (name, complaint) VALUES (?, ?)");
+    $stmt->bind_param("ss", $name, $complaint);
 
     if ($stmt->execute()) {
-        $success = "✅ Review submitted successfully!";
+        $success = "✅ Complaint submitted successfully!";
     } else {
-        $error = "❌ Failed to submit review: " . $stmt->error;
+        $error = "❌ Failed to submit complaint: " . $stmt->error;
     }
 
     $stmt->close();
 }
 
-// Fetch all reviews from the database
-$reviews = [];
-$result = $conn->query("SELECT * FROM reviews ORDER BY created_at DESC");
+// Fetch all complaints from the database
+$complaints = [];
+$result = $conn->query("SELECT * FROM complaints ORDER BY created_at DESC");
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $reviews[] = $row;
+        $complaints[] = $row;
     }
 }
 ?>
@@ -37,7 +37,7 @@ if ($result->num_rows > 0) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Leave a Review</title>
+    <title>Submit a Complaint</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -52,7 +52,7 @@ if ($result->num_rows > 0) {
             border-radius: 12px;
             box-shadow: 0px 0px 10px #aaa;
         }
-        input, textarea, select {
+        input, textarea {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
@@ -60,7 +60,7 @@ if ($result->num_rows > 0) {
             border: 1px solid #ccc;
         }
         button {
-            background: #4CAF50;
+            background: #f44336;
             color: white;
             padding: 12px;
             border: none;
@@ -75,28 +75,25 @@ if ($result->num_rows > 0) {
         .error {
             color: red;
         }
-        .reviews-section {
+        .complaints-section {
             margin-top: 40px;
         }
-        .review {
+        .complaint {
             background: #f9f9f9;
             padding: 10px;
             border-radius: 8px;
             margin-bottom: 20px;
             box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
         }
-        .review h4 {
+        .complaint h4 {
             margin: 0;
             color: #333;
         }
-        .review .rating {
-            color: gold;
-        }
-        .review .comment {
+        .complaint .complaint-text {
             margin-top: 10px;
             font-size: 14px;
         }
-        .review .date {
+        .complaint .date {
             color: #777;
             font-size: 12px;
         }
@@ -105,37 +102,31 @@ if ($result->num_rows > 0) {
 <body>
 
 <div class="container">
-    <h2>Leave a Review</h2>
+    <h2>Submit a Complaint</h2>
     <?php if (!empty($success)) echo "<div class='message'>$success</div>"; ?>
     <?php if (!empty($error)) echo "<div class='error'>$error</div>"; ?>
     <form method="POST">
         <label>Your Name:</label>
         <input type="text" name="name" required>
 
-        <label>Rating (1 to 5):</label>
-        <select name="rating" required>
-            <option value="">--Select--</option>
-            <?php for ($i = 1; $i <= 5; $i++) echo "<option value='$i'>$i</option>"; ?>
-        </select>
+        <label>Complaint:</label>
+        <textarea name="complaint" rows="4" required></textarea>
 
-        <label>Comment:</label>
-        <textarea name="comment" rows="4" required></textarea>
-
-        <button type="submit">Submit Review</button>
+        <button type="submit">Submit Complaint</button>
     </form>
 </div>
 
-<!-- Reviews Section -->
-<div class="reviews-section">
-    <h2>Customer Reviews</h2>
-    <?php if (empty($reviews)) : ?>
-        <p>No reviews yet. Be the first to leave a review!</p>
+<!-- Complaints Section -->
+<div class="complaints-section">
+    <h2>Customer Complaints</h2>
+    <?php if (empty($complaints)) : ?>
+        <p>No complaints yet. Be the first to leave a complaint!</p>
     <?php else : ?>
-        <?php foreach ($reviews as $review) : ?>
-            <div class="review">
-                <h4><?php echo htmlspecialchars($review['name']); ?> <span class="rating">⭐ <?php echo $review['rating']; ?></span></h4>
-                <p class="comment"><?php echo nl2br(htmlspecialchars($review['comment'])); ?></p>
-                <p class="date">Posted on: <?php echo $review['created_at']; ?></p>
+        <?php foreach ($complaints as $complaint) : ?>
+            <div class="complaint">
+                <h4><?php echo htmlspecialchars($complaint['name']); ?></h4>
+                <p class="complaint-text"><?php echo nl2br(htmlspecialchars($complaint['complaint'])); ?></p>
+                <p class="date">Submitted on: <?php echo $complaint['created_at']; ?></p>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>

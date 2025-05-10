@@ -132,6 +132,9 @@ $result= $conn->query("select * from coffees");?>
     </div>
 </div>
 <h2>☕ Add New Coffee</h2>
+<form action="admin_events.php" method="GET">
+  <input type="submit" value="EVENTS_MANAGE" class="event-button" />
+</form>
 <form method="POST">
     <input type="text" name="name" placeholder="Name" required><br><br>
     <textarea name="description" placeholder="Description" required></textarea><br><br>

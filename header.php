@@ -18,9 +18,14 @@ require_once 'init.php';
         <?php if(isset($_SESSION['email'])): ?>
             <nav class="main-nav">
                 <a href="cart_view.php"><i class="fas fa-shopping-cart"></i> Cart</a>
-                <a href="review.php"><i class="fas fa-star"></i> Reviews</a>
+                <a href="events.php"> 🎉 Events</a>
                 <a href="reservation.php"><i class="fas fa-calendar-alt"></i> Reservations</a>
+                <a href="review.php"><i class="fas fa-star"></i> Review</a>
+                <a href="recommend.php"><i class="fas fa-thumbs-up"> Recommend</i></a>
                 <a href="logout.php" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                
+
+            
             </nav>
         <?php endif; ?>
     </header>

@@ -1,6 +1,35 @@
 <?php require_once 'init.php'; ?><?php
 include 'db.php';
 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Handle new reservation
+    if (isset($_POST['username'], $_POST['tables_requested'])) {
+        $username = htmlspecialchars(trim($_POST['username']));
+        $tables_requested = min((int)$_POST['tables_requested'], 6); // limit to 6
+
+        // Get available tables
+        $stmt = $conn->prepare("SELECT TABLE_NO FROM tables WHERE RESERVED='AVAILABLE' LIMIT ?");
+        $stmt->bind_param("i", $tables_requested);
+        $stmt->execute();
+        $available = $stmt->get_result();
+
+        while ($row = $available->fetch_assoc()) {
+            $table_no = $row['TABLE_NO'];
+            $update = $conn->prepare("UPDATE tables SET RESERVED='RESERVED', BOOKED_FOR=? WHERE TABLE_NO=?");
+            $update->bind_param("si", $username, $table_no);
+            $update->execute();
+        }
+    }
+
+    // Handle cancel reservation
+    if (isset($_POST['cancel_username'])) {
+        $cancel_user = htmlspecialchars(trim($_POST['cancel_username']));
+        $cancel = $conn->prepare("UPDATE tables SET RESERVED='AVAILABLE', BOOKED_FOR=NULL WHERE BOOKED_FOR=?");
+        $cancel->bind_param("s", $cancel_user);
+        $cancel->execute();
+    }
+}
+
 $sql = "SELECT * FROM tables";
 $result = $conn->query($sql);
 ?>
@@ -8,141 +37,80 @@ $result = $conn->query($sql);
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tables for Reservation</title>
+    <title>Multi-Table Reservation</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+        body { font-family: Arial; }
         .table {
             border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 8px;
-            background-color: #f9f9f9;
+            padding: 10px; margin: 10px;
+            border-radius: 8px; background-color: #f9f9f9;
+        }
+
+        /* Back button styles */
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 8px 15px;
+            background-color:white;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background-color:rgb(252, 249, 247);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .back-btn i {
+            margin-right: 5px;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <a href="menu.php" class="back-btn" style="color: black;">
+    <i class="fas fa-arrow-left"></i> Back to Menu
+</a>
 
-<h1>🍽️ Tables for Reservation</h1>
+<h1>🍽️ Reserve Tables</h1>
 
+<!-- Reservation Form -->
+<form action="reservation.php" method="POST">
+    <label>USER NAME:</label><br>
+    <input type="text" name="username" required><br>
+
+    <label>NUMBER OF TABLES TO RESERVE (max 6):</label><br>
+    <input type="number" name="tables_requested" min="1" max="6" required><br><br>
+
+    <input type="submit" value="RESERVE">
+</form>
+
+<!-- Cancel Reservation -->
+<h3>Cancel Your Reservation</h3>
+<form method="POST">
+    <label>Enter your username:</label><br>
+    <input type="text" name="cancel_username" required>
+    <input type="submit" value="CANCEL">
+</form>
+
+<!-- Display Tables -->
+<h2>📋 Current Table Status</h2>
 <?php if ($result && $result->num_rows > 0): ?>
     <?php while ($table = $result->fetch_assoc()): ?>
         <div class="table">
-            <h2>Table No: <?= htmlspecialchars($table["TABLE_NO"]) ?></h2>
-            <h3>Seats: <?= htmlspecialchars($table["SEAT_NO"]) ?></h3>
-            
+            <h3>Table No: <?= htmlspecialchars($table["TABLE_NO"]) ?></h3>
+            <p>Status: <?= htmlspecialchars($table["RESERVED"]) ?></p>
+
         </div>
     <?php endwhile; ?>
 <?php else: ?>
-    <p>No tables available for reservation.</p>
+    <p>No tables found.</p>
 <?php endif; ?>
-<?php
-/*include "db.php"; // connects to database
-
-// Get total reserved seats so far
-$totalReserved = 0;
-$result = $conn->query("SELECT SUM(seats) AS total FROM reservations");
-if ($row = $result->fetch_assoc()) {
-    $totalReserved = $row['total'] ?? 0;
-}
-
-$maxCapacity = 18;
-$availableSeats = $maxCapacity - $totalReserved;
-
-$message = "";
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'];
-    $seats = (int)$_POST['seats'];
-
-    if ($seats <= 0 || $seats > 3) {
-        $message = "You can reserve between 1 and 3 seats only.";
-    } elseif ($seats > $availableSeats) {
-        $message = "Only $availableSeats seats are available.";
-    } else {
-        $stmt = $conn->prepare("INSERT INTO reservations (name, seats) VALUES (?, ?)");
-        $stmt->bind_param("si", $name, $seats);
-        $stmt->execute();
-        $stmt->close();
-        header("Location: reservation.php"); // refresh to show updated seats
-        exit();
-    }
-}
-?>
-
-<?php
-
-// Get total reserved seats so far
-$totalReserved = 0;
-$result = $conn->query("SELECT SUM(seats) AS total FROM reservations");
-if ($row = $result->fetch_assoc()) {
-    $totalReserved = $row['total'] ?? 0;
-}
-
-$maxCapacity = 18;
-$availableSeats = $maxCapacity - $totalReserved;
-
-$message = "";
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'];
-    $seats = (int)$_POST['seats'];
-
-    if ($seats <= 0 || $seats > 3) {
-        $message = "You can reserve between 1 and 3 seats only.";
-    } elseif ($seats > $availableSeats) {
-        $message = "Only $availableSeats seats are available.";
-    } else {
-        $stmt = $conn->prepare("INSERT INTO reservations (name, seats) VALUES (?, ?)");
-        $stmt->bind_param("si", $name, $seats);
-        $stmt->execute();
-        $stmt->close();
-        header("Location: reservation.php"); // refresh to show updated seats
-        exit();
-    }
-}
-?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Reserve Your Seat</title>
-    <style>
-        body { font-family: Arial; background: #fdf6ec; padding: 20px; }
-        .form-box { background: #fff; padding: 20px; max-width: 400px; margin: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);}
-        input[type="text"], input[type="number"] { width: 100%; padding: 10px; margin: 10px 0; }
-        input[type="submit"] { background: #a9744f; color: white; padding: 10px 20px; border: none; cursor: pointer; }
-        input[type="submit"]:hover { background: #8d5f3f; }
-        .message { color: red; text-align: center; }
-    </style>
-</head>
-<body>
-
-<div class="form-box">
-    <h2>Reserve Your Seat</h2>
-    <p>Available Seats: <strong><?= $availableSeats ?></strong> / 18</p>
-
-    <?php if ($message): ?>
-        <p class="message"><?= htmlspecialchars($message) ?></p>
-    <?php endif; ?>
-
-    <?php if ($availableSeats > 0): ?>
-    <form method="POST">
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="number" name="seats" min="1" max="3" placeholder="Seats (max 3)" required />
-        <input type="submit" value="Reserve">
-    </form>
-    <?php else: ?>
-        <p class="message">Sorry! All seats are reserved.</p>
-    <?php endif; ?>
-</div>
 
 </body>
 </html>
-
-<?php $conn->close(); ?>*/
-?>
 
 
 

@@ -44,14 +44,50 @@ $totals = $totals_result->fetch_assoc();
         th { background: #6F4E37; color: white; }
         tr:hover { background: #f5f5f5; }
         .badge { background: #e0c097; color: #5a3e2b; padding: 3px 8px; border-radius: 10px; font-size: 12px; }
+    
+        /* Admin Header Styles */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.admin-nav-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 8px 15px;
+            background-color:white;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+}
+
+.admin-nav-btn:hover {
+            background-color:rgb(252, 249, 247);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.admin-nav-btn i {
+    margin-right: 5px;
+}
+
+    
     </style>
 </head>
 <body>
 <div class="admin-header">
     <h1><i class="fas fa-clipboard-list"></i> Order Dashboard</h1>
-    <a href="admin_panel.php" class="admin-nav-btn">
-        <i class="fas fa-arrow-left"></i> Back to Products
-    </a>
+    <a href="admin_panel.php" class="admin-nav-btn" style="color: black;">
+    <i class="fas fa-arrow-left"></i> Back to Menu
+</a>
 </div>
 
     <div class="summary-cards">
