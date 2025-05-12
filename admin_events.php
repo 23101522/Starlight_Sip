@@ -83,10 +83,39 @@ $events = $conn->query("SELECT * FROM events ORDER BY event_date DESC");
         </tr>
     <?php endwhile; ?>
     <h2>👥 Event Participants</h2>
+    <?php
+    $participant_query = "
+    SELECT ep.event_id, e.title, ep.name, ep.rsvp_date 
+    FROM event_participants ep
+    JOIN events e ON ep.event_id = e.event_id
+    ORDER BY e.event_id, ep.rsvp_date DESC
+    ";
+    $participants = $conn->query($participant_query);
 
+$current_event = null;
+if ($participants && $participants->num_rows > 0):
+      while($row = $participants->fetch_assoc()):
+        if ($current_event !== $row['event_id']):
+            if ($current_event !== null) echo "</table><br>";
+            $current_event = $row['event_id'];
+            echo "<h3>📌 " . htmlspecialchars($row['title']) . "</h3>";
+            echo "<table>
+                    <tr><th>Name</th><th>RSVP Date</th></tr>";
+        endif;
+        echo "<tr>
+                <td>" . htmlspecialchars($row['name']) . "</td>
+                <td>" . htmlspecialchars($row['rsvp_date']) . "</td>
+              </tr>";
+      endwhile;
+      echo "</table>";
+else:
+     echo "<p>No participants yet.</p>";
+    endif;
+
+?>
 <?php
 $participant_query = "
-    SELECT ep.event_id, e.title, ep.name, ep.rsvp_date 
+    SELECT ep.event_id, e.title, ep.full_name, ep.rsvp_date 
     FROM event_participants ep
     JOIN events e ON ep.event_id = e.event_id
     ORDER BY e.event_id, ep.rsvp_date DESC
@@ -101,10 +130,10 @@ if ($participants && $participants->num_rows > 0):
             $current_event = $row['event_id'];
             echo "<h3>📌 " . htmlspecialchars($row['title']) . "</h3>";
             echo "<table border='1'>
-                    <tr><th>Name</th><th>RSVP Date</th></tr>";
+                    <tr><th>Name</th><th>PARTICIPATION DATE</th></tr>";
         endif;
         echo "<tr>
-                <td>" . htmlspecialchars($row['name']) . "</td>
+                <td>" . htmlspecialchars($row['full_name']) . "</td>
                 <td>" . $row['rsvp_date'] . "</td>
               </tr>";
     endwhile;

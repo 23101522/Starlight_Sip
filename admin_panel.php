@@ -75,10 +75,6 @@ $result= $conn->query("select * from coffees");?>
     border: 1px solid rgba(90, 62, 43, 0.2);
 }
 
-.admin-actions a[href="admin_orders.php"]:hover {
-    background: rgba(138, 154, 91, 0.3);
-    transform: translateY(-1px);
-}
 
 /* Logout Button */
 .admin-actions a[href="Admin_logout.php"] {
@@ -118,12 +114,33 @@ $result= $conn->query("select * from coffees");?>
         .logout-btn i {
             font-size: 0.9em;
         }
+
+        /* View Complaints Button */
+        .admin-actions a[href="admin_complaints.php"] {
+            color: #5a3e2b;
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid rgba(231, 76, 60, 0.2);
+        }
+
+        /* View Reviews Button */
+        .admin-actions a[href="admin_reviews.php"] {
+            color: #5a3e2b;
+            background: rgba(64, 181, 246, 0.2);
+            border: 1px solid rgba(64, 181, 246, 0.2);
+        }
+
     </style>
 </head>
 <body>
 <div class="admin-header">
     <div class="admin-actions">
         <a href="admin_orders.php" class="btn" style="background:tranparent; font-size: medium;">View Orders
+        </a>
+        <a href="admin_complaints.php" class="btn">
+            <i class="fas fa-exclamation-circle"></i> View Complaints
+        </a>
+        <a href="admin_reviews.php" class="btn">
+            <i class="fas fa-star"></i> View Reviews
         </a>
         <a href="admin_logout.php" class="logout-btn" style="background:tranparent; font-size: medium; color: #5a3e2b;">Logout
         </a>
@@ -132,6 +149,9 @@ $result= $conn->query("select * from coffees");?>
 <h2>☕ Add New Coffee</h2>
 <form action="admin_events.php" method="GET">
   <input type="submit" value="EVENTS_MANAGE" class="event-button" />
+</form>
+<form action="admin_reservation.php" method="GET">
+  <input type="submit" value="RESERVATION_MANAGE" class="reservation-button" />
 </form>
 <form method="POST">
     <input type="text" name="name" placeholder="Name" required><br><br>

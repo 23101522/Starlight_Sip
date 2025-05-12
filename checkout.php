@@ -66,15 +66,6 @@ include 'header.php';
     .cancel-btn:hover {
         background: #c0392b !important; transform: scale(0.98);
     }
-    @media (max-width: 600px) {
-        .payment-btn, .cancel-btn {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-        div[style*="space-between"] {
-            flex-direction: column;
-        }
-    }
 </style>
 </head>
 <body>
